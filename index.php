@@ -1,0 +1,81 @@
+<?php
+include_once('connect.php');
+
+$sql = "SELECT * FROM scores, students WHERE scores.students_id = students.id;";
+$result = $conn->query($sql);
+$data = $result->fetch_all(MYSQLI_ASSOC);
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <nav class="relative flex w-full flex-wrap items-center justify-between bg-gray-50 py-2 text-neutral-500 shadow-lg hover:text-neutral-700 focus:text-neutral-700 dark:bg-neutral-600 lg:py-4">
+    <div class="flex w-full flex-wrap items-center justify-between px-3">
+      <div class="ml-2">
+        <a class="text-xl text-neutral-800 dark:text-neutral-200" href="#">DODOS</a>
+      </div>
+      <div class="mr-6">
+        <a class="text-lg" href=""><img class="w-10" src="smkn.jpeg" alt=""></a>
+      </div>
+    </div>
+  </nav>
+    <div class="flex">
+        <div class="basis-4/12 p-5 bg-gray-200">
+            <h1 class="font-bold text-xl text-center">INPUT NILAI</h1>
+            <div class="justify-center align-middle">
+            <form action="" method="POST">
+                <div class="mb-3">
+                    <label for="name">Name</label>
+                    <input id="name" type="text" name="name" class="w-full p-1 rounded-xl shadow-xl">
+                </div>
+                <div class="mb-3">
+                    <label for="Nilai">Nilai</label>
+                    <input id="Nilai" type="number" name="Nilai" class="w-full p-1 rounded-xl shadow-xl ">
+                </div>
+                    <button class="w-full bg-blue-500 hover:bg-blue-800 duration-300 text-white p-1.5 rounded-xl">SUBMIT</button>
+                </form>
+        </div>
+    </div>
+    <div class="bg-gray-200 w-full m-4 shadow-xl rounded-lg">
+        <div class="basis-8/12">
+            <h1 class="font-bold text-xl text-center p-3">Tabel Nilai</h1>
+            <table class=" w-11/12 m-auto text-center">
+                
+            <thead class="border border-grey-1000 bg-white">
+                <tr>
+                <th scope="col">No.</th>
+                <th scope="col">Nama</th>
+                <th scope="col">Nilai</th>
+                <th scope="col">aksi</th>
+                </tr>
+            </thead>
+            <tbody class="border border-grey-1000 bg-gray-500 text-white">
+            <?php foreach($data as $key => $d):?>
+                <tr>
+                    <td><?= $key + 1?></td>
+                    <td><?= $d['name']?></td>
+                    <td><?= $d['score']?></td>
+                <td>
+                    <button class="bg-green-500 rounded-lg m-2 text-white p-0.5">update</button>
+                    <span class="font-bold">/</span>
+                    <button class="bg-red-500 rounded-lg m-2 text-white p-0.5">delete</button>
+                </td>
+                </tr>
+                <?php endforeach ?>
+             
+            </tbody>
+        </table>
+    </div>
+        </div>
+    </div>
+    <div class="bg-gray-400 p-2">
+       <span class="text-white text-center"><p>Copyright@SMKN 10 JAKARTA TIMUR</p></span>
+    </div>
+</body>
+</html>
